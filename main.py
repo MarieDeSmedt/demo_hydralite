@@ -14,7 +14,7 @@ from page.segmentations import display_segmentations
 from page.home import display_home
 
 # toujours en premier
-st.set_page_config(layout='wide',initial_sidebar_state='collapsed',)
+st.set_page_config(layout='wide',initial_sidebar_state='expanded')
 
   
 
