@@ -16,8 +16,7 @@ from page.home import display_home
 # toujours en premier
 st.set_page_config(layout='wide',initial_sidebar_state='collapsed',)
 
-#set the sidebar
-display_sidebar()
+  
 
 #Nom des onglets
 menu_data = [
@@ -58,3 +57,7 @@ elif menu_id == "Contrôle":
     display_controle()
 else:
     display_home()
+    
+#set the sidebar
+if st.session_state['authentication_status']:
+    display_sidebar()

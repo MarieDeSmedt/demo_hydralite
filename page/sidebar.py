@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 def display_sidebar():
-    df = pd.read_csv("CSV\Streamlit_test.csv")
+    df = pd.read_csv("data\Streamlit_test.csv")
     mon_perimetre={}
     for column in df:
         if column != "nbcust" and column != "salesQuantity" and column != "salesAmount":
