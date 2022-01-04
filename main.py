@@ -2,7 +2,7 @@
 import streamlit as st
 import hydralit_components as hc
 
-from sidebar import display_sidebar
+from page.sidebar import display_sidebar
 from page.synthese import display_synthese
 from page.analyseComparative import display_analyseComparative
 from page.analyseDetaillee import display_analyseDetaillee
@@ -11,6 +11,7 @@ from page.controle import display_controle
 from page.pmg import display_pmg
 from page.pointsDeVente import display_pointDeVente
 from page.segmentations import display_segmentations
+from page.home import display_home
 
 # toujours en premier
 st.set_page_config(layout='wide',initial_sidebar_state='collapsed',)
@@ -56,4 +57,4 @@ elif menu_id == "Points de vente":
 elif menu_id == "Contrôle":
     display_controle()
 else:
-    st.write("home")
+    display_home()
