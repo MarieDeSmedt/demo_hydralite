@@ -18,14 +18,16 @@ def display_login():
     st.session_state['authorised_sectors'] = ""
     st.session_state['name'] ="init"
     st.session_state['authentication_status']=False
+    st.session_state['authorised_sectors']=""
 
     st.session_state['name'],st.session_state['authentication_status'] = authenticator.login('Login','sidebar')
 
     if st.session_state['authentication_status']:
         
         df =data.loc[(data['names'] == st.session_state['name'])]
-        logged_sectors = df['sectors'][0]
-        st.session_state['authorised_sectors'] =logged_sectors
+        authorised_sectors = df['sectors'].iloc[0]
+        st.session_state['authorised_sectors'] =authorised_sectors
+    
     
     elif st.session_state['authentication_status'] == False:
 
