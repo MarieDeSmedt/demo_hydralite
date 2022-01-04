@@ -1,6 +1,7 @@
 
 import streamlit as st
 import hydralit_components as hc
+import pandas as pd
 
 from page.sidebar import display_sidebar
 from page.synthese import display_synthese
@@ -59,7 +60,20 @@ elif menu_id == "Contrôle":
 else:
     display_login()
     
-#set the sidebar
+#une fois connecté
 if st.session_state['authentication_status']:
+    
+    #affiche le message d'acceuil en fonction des secteurs auxquels la personne a accés
+    df_sectors = pd.read_csv("data/sector_label.csv")
+
+    authorised_sectors = st.session_state['authorised_sectors'].split("/")
+    
+    df_authorised_sectors =df_sectors[(df_sectors['sector'] == 304)]
+
+    authorised_sectors_labels = df_authorised_sectors['sectorlabel']
+    
+    display_home(df_authorised_sectors)
+
     display_sidebar()
-    display_home()
+
+    

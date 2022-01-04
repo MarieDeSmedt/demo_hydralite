@@ -15,7 +15,7 @@ def display_login():
     'some_cookie_name','some_signature_key',cookie_expiry_days=30)
 
     # initialisation pour pouvoir se logout
-    st.session_state['sectors'] = ""
+    st.session_state['authorised_sectors'] = ""
     st.session_state['name'] ="init"
     st.session_state['authentication_status']=False
 
@@ -23,10 +23,9 @@ def display_login():
 
     if st.session_state['authentication_status']:
         
-        
         df =data.loc[(data['names'] == st.session_state['name'])]
         logged_sectors = df['sectors'][0]
-        st.session_state['sectors'] =logged_sectors
+        st.session_state['authorised_sectors'] =logged_sectors
     
     elif st.session_state['authentication_status'] == False:
 

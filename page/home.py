@@ -1,12 +1,8 @@
 import streamlit as st
 
-def display_home():
+def display_home(df_authorised_sectors):
     st.write("welcome", st.session_state['name'])
+    st.write("vous avez accés aux secteurs:")
+    st.table(df_authorised_sectors)
 
-    sectors = st.session_state['sectors'].split("/")
-    if len(sectors)>1:
-        st.write("vous avez accés aux secteurs:")
-        for sector in sectors:
-            st.write(sector)
-    
         
