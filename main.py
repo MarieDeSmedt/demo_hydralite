@@ -11,6 +11,7 @@ from page.controle import display_controle
 from page.pmg import display_pmg
 from page.pointsDeVente import display_pointDeVente
 from page.segmentations import display_segmentations
+from page.login import display_login
 from page.home import display_home
 
 # toujours en premier
@@ -56,8 +57,9 @@ elif menu_id == "Points de vente":
 elif menu_id == "Contrôle":
     display_controle()
 else:
-    display_home()
+    display_login()
     
 #set the sidebar
 if st.session_state['authentication_status']:
     display_sidebar()
+    display_home()
