@@ -5,7 +5,6 @@ import streamlit_authenticator as stauth
 
 
 def display_login():
-
     data=pd.read_csv("data/login.csv")
     
     names = data['names']
@@ -14,7 +13,7 @@ def display_login():
     hashed_passwords = stauth.hasher(passwords).generate()
 
     authenticator = stauth.authenticate(names,usernames,hashed_passwords,
-    'some_cookie_name','some_signature_key',cookie_expiry_days=30)
+    'some_cookie_name','some_signature_key',cookie_expiry_days=1)
 
     st.session_state['name'],st.session_state['authentication_status'] = authenticator.login('Login','sidebar')
 
@@ -27,6 +26,7 @@ def display_login():
 
     elif st.session_state['authentication_status'] == False:
         st.sidebar.error('Username/password is incorrect')
+
         
     elif st.session_state['authentication_status'] == None:
         st.sidebar.warning('Please enter your username and password')

@@ -18,8 +18,6 @@ from page.home import display_home
 # toujours en premier
 st.set_page_config(layout='wide',initial_sidebar_state='expanded')
 
-  
-
 #Nom des onglets
 menu_data = [
     {'label':"Synthèse"},
@@ -40,31 +38,40 @@ menu_id = hc.nav_bar(
     sticky_mode='pinned'
 )
 
-#action selon onglet
-if menu_id == "Synthèse":
-    display_synthese()
-elif menu_id == "Analyse détaillée":
-    display_analyseDetaillee()
-elif menu_id == "Contexte":
-    display_contexte()
-elif menu_id == "Analyse comparative":
-    display_analyseComparative()
-elif menu_id == "PMG":
-    display_pmg()
-elif menu_id == "Segmentations":
-    display_segmentations()
-elif menu_id == "Points de vente":
-    display_pointDeVente()
-elif menu_id == "Contrôle":
-    display_controle()
-else:
-    if st.session_state['authentication_status']:
-        display_home()
-        display_sidebar()
-    else:
-        display_login()
-    
 
+
+#connexion
+display_login()
+
+#si connecté
+if st.session_state['authentication_status']:
+
+    #affiche choix perimetre
+    display_sidebar()   
+
+    #action selon onglet 
+    if menu_id == "Synthèse":
+        display_synthese()
+    elif menu_id == "Analyse détaillée":
+        display_analyseDetaillee()
+    elif menu_id == "Contexte":
+        display_contexte()
+    elif menu_id == "Analyse comparative":
+        display_analyseComparative()
+    elif menu_id == "PMG":
+        display_pmg()
+    elif menu_id == "Segmentations":
+        display_segmentations()
+    elif menu_id == "Points de vente":
+        display_pointDeVente()
+    elif menu_id == "Contrôle":
+        display_controle()
+    else: 
+        display_home()
+
+else:
+    st.session_state['mon_perimetre'] = None
+    st.session_state['authorised_sectors'] = None
 
 
     
