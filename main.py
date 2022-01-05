@@ -50,7 +50,10 @@ if st.session_state['authentication_status']:
     display_sidebar()
 
     if st.session_state['mon_perimetre'] != None:
-        query()  
+        st.session_state['result'] = query()  
+        st.write("request ok")
+    else:
+        st.write("veuillez définir un périmètre")
 
     #action selon onglet 
     if menu_id == "Synthèse":
@@ -59,7 +62,6 @@ if st.session_state['authentication_status']:
         display_analyseDetaillee()
     elif menu_id == "Contexte":
         display_contexte()
-
     elif menu_id == "Analyse comparative":
         display_analyseComparative()
     elif menu_id == "PMG":
@@ -77,6 +79,7 @@ else:
     st.session_state['mon_perimetre'] = None
     st.session_state['authorised_sectors'] = None
     st.session_state['mon_perimetre'] = None
+    st.session_state['result'] = None
 
 
     
