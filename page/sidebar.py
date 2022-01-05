@@ -9,7 +9,7 @@ def display_sidebar():
             perimetre = st.sidebar.multiselect(column,df[column].unique())
             mon_perimetre[column] = perimetre
     if st.sidebar.button("définir périmètre"):
-        st.session_state['mon_perimetre']=mon_perimetre
+        st.session_state['mon_perimetre']= mon_perimetre
 
 
 

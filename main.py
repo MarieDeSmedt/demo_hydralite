@@ -32,7 +32,7 @@ menu_data = [
     {'label':"Contrôle"}
  ]
 
-#set the nevbar
+#set the navbar
 menu_id = hc.nav_bar(
     menu_definition=menu_data,
     home_name='Home',
@@ -58,22 +58,13 @@ elif menu_id == "Points de vente":
 elif menu_id == "Contrôle":
     display_controle()
 else:
-    display_login()
+    if st.session_state['authentication_status']:
+        display_home()
+        display_sidebar()
+    else:
+        display_login()
     
-#une fois connecté
-if st.session_state['authentication_status']:
-    
-    #affiche le message d'acceuil en fonction des secteurs auxquels la personne a accés
-    df_sectors = pd.read_csv("data/sector_label.csv")
-    authorised_sectors = st.session_state['authorised_sectors'].split("/")
-    
-    string_authorised_sectors = map(int, authorised_sectors)
-    integer_authorised_sectors = list(string_authorised_sectors)
-   
-    df_authorised_sectors =df_sectors[df_sectors['sector'].isin(integer_authorised_sectors)]
-    
-    display_home(df_authorised_sectors)
 
-    # display_sidebar()
+
 
     
