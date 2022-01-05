@@ -10,7 +10,6 @@ def connect_to_BQ():
     #    st.secrets["gcp_service_account"]
     # )
 
-
     credentials, PROJET_EXEC = google.auth.default()
 
     client = bigquery.Client(credentials=credentials)

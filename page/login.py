@@ -22,12 +22,13 @@ def display_login():
         #init authorised_sectors
         df =data.loc[(data['names'] == st.session_state['name'])]
         authorised_sectors = df['sectors'].iloc[0]
-        st.session_state['authorised_sectors'] =authorised_sectors   
+        string_authorised_sectors =  authorised_sectors.split("/")
+        integer_authorised_sectors = map(int, string_authorised_sectors)
+        st.session_state['authorised_sectors'] = list(integer_authorised_sectors)
 
     elif st.session_state['authentication_status'] == False:
         st.sidebar.error('Username/password is incorrect')
 
-        
     elif st.session_state['authentication_status'] == None:
         st.sidebar.warning('Please enter your username and password')
         

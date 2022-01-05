@@ -38,8 +38,6 @@ menu_id = hc.nav_bar(
     sticky_mode='pinned'
 )
 
-
-
 #connexion
 display_login()
 

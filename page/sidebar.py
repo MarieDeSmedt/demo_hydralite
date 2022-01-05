@@ -2,12 +2,12 @@ import streamlit as st
 import pandas as pd
 
 def display_sidebar():
-    df = pd.read_csv("data\Streamlit_test.csv")
     mon_perimetre={}
-    for column in df:
-        if column != "nbcust" and column != "salesQuantity" and column != "salesAmount":
-            perimetre = st.sidebar.multiselect(column,df[column].unique())
-            mon_perimetre[column] = perimetre
+
+    #choose sector
+    choosed_sector = st.sidebar.multiselect("SECTEURS:",st.session_state['authorised_sectors'])
+    mon_perimetre["sector"] = choosed_sector
+
     if st.sidebar.button("définir périmètre"):
         st.session_state['mon_perimetre']= mon_perimetre
 
