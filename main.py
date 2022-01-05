@@ -15,6 +15,8 @@ from page.segmentations import display_segmentations
 from page.login import display_login
 from page.home import display_home
 
+from connect import query
+
 # toujours en premier
 st.set_page_config(layout='wide',initial_sidebar_state='expanded')
 
@@ -45,7 +47,10 @@ display_login()
 if st.session_state['authentication_status']:
 
     #affiche choix perimetre
-    display_sidebar()   
+    display_sidebar()
+
+    if st.session_state['mon_perimetre'] != None:
+        query()  
 
     #action selon onglet 
     if menu_id == "Synthèse":
@@ -54,6 +59,7 @@ if st.session_state['authentication_status']:
         display_analyseDetaillee()
     elif menu_id == "Contexte":
         display_contexte()
+
     elif menu_id == "Analyse comparative":
         display_analyseComparative()
     elif menu_id == "PMG":
@@ -70,6 +76,7 @@ if st.session_state['authentication_status']:
 else:
     st.session_state['mon_perimetre'] = None
     st.session_state['authorised_sectors'] = None
+    st.session_state['mon_perimetre'] = None
 
 
     

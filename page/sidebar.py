@@ -37,7 +37,6 @@ def display_sidebar():
     #segmentation>SegmentValue>SegmentLabel	
     #TODO	
     	
-
     if st.sidebar.button("définir périmètre"):
         st.session_state['mon_perimetre']= mon_perimetre
 
