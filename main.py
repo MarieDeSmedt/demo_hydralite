@@ -51,7 +51,6 @@ if st.session_state['authentication_status']:
 
     if st.session_state['mon_perimetre'] != None:
         st.session_state['result'] = query()  
-        st.write("request ok")
     else:
         st.write("veuillez définir un périmètre")
 

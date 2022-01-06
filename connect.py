@@ -22,80 +22,41 @@ def query():
 
     #define perimetre:---------------------------------------------------------------
 
-    #sector
-    if len(st.session_state.mon_perimetre['sector']) >0:
-        varlist=st.session_state.mon_perimetre['sector']
-        var_string = ', '.join(varlist)        
-        sector = 'AND sector IN (%s)' % var_string
-    else:
-        sector = ""
-    st.write(sector)
+    def create_string_variable(nameOfMultiSelect):
+        if len(st.session_state.mon_perimetre[nameOfMultiSelect]) >0:
+            varlist=st.session_state.mon_perimetre[nameOfMultiSelect]
+            var_string = (', '.join('"' + item + '"' for item in varlist))       
+            stringVariable = f'AND {nameOfMultiSelect} IN ({var_string})'
+        else:
+            stringVariable = ""
+        return(stringVariable)
 
-    #typeTicket
-    #     mon_perimetre['typeTicket'] 
-    if len(st.session_state.mon_perimetre['typeTicket']) >0:
-        varlist=st.session_state.mon_perimetre['typeTicket']
-        var_string = (', '.join('"' + item + '"' for item in varlist))       
-        typeTicket = 'AND typeTicket IN (%s)' % var_string
-    else:
-        typeTicket = ""
-    st.write(typeTicket)
+    sector = create_string_variable('sector')
+    typeTicket = create_string_variable('typeTicket') 
+    siteCluster = create_string_variable('siteCluster')
+    brandType = create_string_variable('brandType')
+    custAgeRange = create_string_variable('custAgeRange')
+    customerActivationEasinessLabel = create_string_variable('customerActivationEasinessLabel')
 
-    #start
     if st.session_state.mon_perimetre['start'] != None:
         date=st.session_state.mon_perimetre['start']     
-        start = 'AND day >= "%s"' % date
+        start = 'AND day <= "%s"' % date
     else:
-        start = ""
-    st.write(start)
+        start = "" 
 
-    #end
     if st.session_state.mon_perimetre['end'] != None:
         date=st.session_state.mon_perimetre['end']     
         end = 'AND day <= "%s"' % date
     else:
-        end = ""
+        end = "" 
+       
+    
+    st.write(start)
     st.write(end)
-
-    #siteCluster
-    if len(st.session_state.mon_perimetre['siteCluster']) >0:
-        varlist=st.session_state.mon_perimetre['siteCluster']
-        var_string = (', '.join('"' + item + '"' for item in varlist))       
-        siteCluster = 'AND siteCluster IN (%s)' % var_string
-    else:
-        siteCluster = ""
-    st.write(siteCluster)
-
-    #brandType
-    if len(st.session_state.mon_perimetre['brandType']) >0:
-        varlist=st.session_state.mon_perimetre['brandType']
-        var_string = (', '.join('"' + item + '"' for item in varlist))       
-        brandType = 'AND brandType IN (%s)' % var_string
-    else:
-        brandType = ""
-    st.write(brandType)
-
-    #custAgeRange
-    if len(st.session_state.mon_perimetre['custAgeRange']) >0:
-        varlist=st.session_state.mon_perimetre['custAgeRange']
-        var_string = (', '.join('"' + item + '"' for item in varlist))       
-        custAgeRange = 'AND custAgeRange IN (%s)' % var_string
-    else:
-        custAgeRange = ""
-    st.write(custAgeRange)
-
-    #customerActivationEasinessLabel
-    if len(st.session_state.mon_perimetre['customerActivationEasinessLabel']) >0:
-        varlist=st.session_state.mon_perimetre['customerActivationEasinessLabel']
-        var_string = (', '.join('"' + item + '"' for item in varlist))       
-        customerActivationEasinessLabel = 'AND customerActivationEasinessLabel IN (%s)' % var_string
-    else:
-        customerActivationEasinessLabel = ""
-    st.write(customerActivationEasinessLabel)
-
+    
 
     rows="test"
-    # rows = run_query(f"""
+    # rows = run_query(f"""p
     # with 
     # scope as (
     #     SELECT day,siteCluster, typeTicket, sector, sectorlabel,
