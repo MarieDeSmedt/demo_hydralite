@@ -20,26 +20,79 @@ def query():
         rows = [dict(row) for row in rows_raw]
         return rows
 
-    #define perimetre
+    #define perimetre:---------------------------------------------------------------
 
     #sector
     if len(st.session_state.mon_perimetre['sector']) >0:
         varlist=st.session_state.mon_perimetre['sector']
-        var_string = ' '.join(varlist)
-        
-        sector = 'AND sector IN (%s);' % var_string
+        var_string = ', '.join(varlist)        
+        sector = 'AND sector IN (%s)' % var_string
     else:
-        sector = st.session_state['authorised_sectors']
+        sector = ""
     st.write(sector)
 
+    #typeTicket
+    #     mon_perimetre['typeTicket'] 
+    if len(st.session_state.mon_perimetre['typeTicket']) >0:
+        varlist=st.session_state.mon_perimetre['typeTicket']
+        var_string = (', '.join('"' + item + '"' for item in varlist))       
+        typeTicket = 'AND typeTicket IN (%s)' % var_string
+    else:
+        typeTicket = ""
+    st.write(typeTicket)
 
-#     mon_perimetre["start"] 
-#     mon_perimetre["end"]
-#     mon_perimetre['siteCluster'] 
-#     mon_perimetre['typeTicket'] 
-#     mon_perimetre['brandType'] = st.sidebar.multiselect("MARQUE:",brandType)
-#     mon_perimetre['custAgeRange'] = st.sidebar.multiselect("AGE:",custAgeRange
-#     mon_perimetre['customerActivationEasinessLabel'] =    
+    #start
+    if st.session_state.mon_perimetre['start'] != None:
+        date=st.session_state.mon_perimetre['start']     
+        start = 'AND day >= "%s"' % date
+    else:
+        start = ""
+    st.write(start)
+
+    #end
+    if st.session_state.mon_perimetre['end'] != None:
+        date=st.session_state.mon_perimetre['end']     
+        end = 'AND day <= "%s"' % date
+    else:
+        end = ""
+    st.write(end)
+
+    #siteCluster
+    if len(st.session_state.mon_perimetre['siteCluster']) >0:
+        varlist=st.session_state.mon_perimetre['siteCluster']
+        var_string = (', '.join('"' + item + '"' for item in varlist))       
+        siteCluster = 'AND siteCluster IN (%s)' % var_string
+    else:
+        siteCluster = ""
+    st.write(siteCluster)
+
+    #brandType
+    if len(st.session_state.mon_perimetre['brandType']) >0:
+        varlist=st.session_state.mon_perimetre['brandType']
+        var_string = (', '.join('"' + item + '"' for item in varlist))       
+        brandType = 'AND brandType IN (%s)' % var_string
+    else:
+        brandType = ""
+    st.write(brandType)
+
+    #custAgeRange
+    if len(st.session_state.mon_perimetre['custAgeRange']) >0:
+        varlist=st.session_state.mon_perimetre['custAgeRange']
+        var_string = (', '.join('"' + item + '"' for item in varlist))       
+        custAgeRange = 'AND custAgeRange IN (%s)' % var_string
+    else:
+        custAgeRange = ""
+    st.write(custAgeRange)
+
+    #customerActivationEasinessLabel
+    if len(st.session_state.mon_perimetre['customerActivationEasinessLabel']) >0:
+        varlist=st.session_state.mon_perimetre['customerActivationEasinessLabel']
+        var_string = (', '.join('"' + item + '"' for item in varlist))       
+        customerActivationEasinessLabel = 'AND customerActivationEasinessLabel IN (%s)' % var_string
+    else:
+        customerActivationEasinessLabel = ""
+    st.write(customerActivationEasinessLabel)
+
 
     rows="test"
     # rows = run_query(f"""
@@ -53,27 +106,30 @@ def query():
     #         customer, 
     #     FROM `arf-marketing-cocktail-dev.UC_COCKTAIL_DATA.A_customerSegmentation_clusterCircuitMarque` 
     #     WHERE 1=1
-    #         and sector in (?)
-    #         --and day>="2021-12-01" mon_perimetre["start"]
-    #         --and day<="2021-12-30"  mon_perimetre["end"] 
-    #         --and typeTicket in ("HYPER") 
-
-            
+    #         {sector}
+    #         {start}
+    #         {end}
+    #         {typeTicket}
     # ),
 
     # cust as (
-    #     select scope.*,
+    #     SELECT scope.*,
     #         customer.custNumberSid as custNumberSid ,
     #         customer.sumSalesAmountId as sumSalesAmountId, 
     #         customer.custAgeRange as custAgeRange, 
     #         customer.customerActivationEasinessLabel as customerActivationEasinessLabel
-    #     from scope, unnest(customer) as customer    
+    #     FROM scope, unnest(customer) as customer    
     # )
 
-    # select 
+    # SELECT 
     #     count(distinct custNumberSid ) as nbCust
-    # from cust
-
+    # FROM cust
+    # WHERE 1=1
+    #     {siteCluster}
+    #     {brandType}
+    #     {custAgeRange}
+    #     {customerActivationEasinessLabel}
+        
     # """)
 
     return rows
