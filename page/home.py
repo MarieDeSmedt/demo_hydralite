@@ -8,4 +8,3 @@ def display_home():
     st.write("vous avez accés aux secteurs:")
     for index, row in df.iterrows():
         st.write(row[0],":", row[1])
-

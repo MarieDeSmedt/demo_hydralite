@@ -6,7 +6,8 @@ def display_sidebar():
     mon_perimetre={}
 
     #sector
-    mon_perimetre["sector"] = st.sidebar.multiselect("SECTEUR:",st.session_state['authorised_sectors'])
+    mon_perimetre["sector"]= st.sidebar.multiselect("SECTEUR:",st.session_state['authorised_sectors'])
+    
 
     #periode
     mon_perimetre["start"] = st.sidebar.date_input('DEBUT:')
@@ -39,6 +40,7 @@ def display_sidebar():
     	
     if st.sidebar.button("définir périmètre"):
         st.session_state['mon_perimetre']= mon_perimetre
+        
 
 
 
