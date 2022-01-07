@@ -8,10 +8,12 @@ def display_sidebar():
 
     #sector
     df = pd.read_csv("data/sector_label.csv")
-    for authorised_sector in st.session_state['authorised_sectors']:
-        for authorised_sector_label in df.loc[df['sector']==int(authorised_sector),'sectorlabel'].values:
-            sectorlabel_liste.append(authorised_sector_label)
-    mon_perimetre["sector"]= st.sidebar.multiselect("SECTEUR:",sectorlabel_liste)
+    labels = df.set_index('sector')['sectorlabel'].to_dict()
+    options = list(labels.keys())
+    def format_func(sector):
+        return labels[sector]
+    mon_perimetre["sector"]= st.sidebar.multiselect("SECTEUR:",options=options,format_func=format_func)
+    
     
     #periode
     mon_perimetre["start"]  = st.sidebar.date_input('DEBUT:')

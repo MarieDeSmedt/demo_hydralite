@@ -21,6 +21,14 @@ def query():
         return rows
 
     #define perimetre:---------------------------------------------------------------
+    if len(st.session_state.mon_perimetre['sector']) >0:
+        varlist=st.session_state.mon_perimetre['sector']
+        str_list = [str(int) for int in varlist]
+        var = (', '.join(str_list) )      
+        sector = f'AND sector IN ({var})'
+    else:
+        sector = ""
+    st.write("sector",sector)
 
     def create_string_variable(nameOfMultiSelect):
         if len(st.session_state.mon_perimetre[nameOfMultiSelect]) >0:
@@ -31,7 +39,7 @@ def query():
             stringVariable = ""
         return(stringVariable)
 
-    sector = create_string_variable('sector')
+    
     typeTicket = create_string_variable('typeTicket') 
     siteCluster = create_string_variable('siteCluster')
     brandType = create_string_variable('brandType')
@@ -50,9 +58,6 @@ def query():
     else:
         end = "" 
        
-    
-    st.write(start)
-    st.write(end)
     
 
     rows="test"
