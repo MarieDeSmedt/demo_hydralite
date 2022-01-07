@@ -1,23 +1,22 @@
 import streamlit as st
 import pandas as pd
-import datetime
+
 
 def display_sidebar():
     mon_perimetre={}
+    sectorlabel_liste=[]
 
     #sector
-    mon_perimetre["sector"]= st.sidebar.multiselect("SECTEUR:",st.session_state['authorised_sectors'])
+    df = pd.read_csv("data/sector_label.csv")
+    for authorised_sector in st.session_state['authorised_sectors']:
+        for authorised_sector_label in df.loc[df['sector']==int(authorised_sector),'sectorlabel'].values:
+            sectorlabel_liste.append(authorised_sector_label)
+    mon_perimetre["sector"]= st.sidebar.multiselect("SECTEUR:",sectorlabel_liste)
     
     #periode
-    start_date = st.sidebar.date_input('DEBUT:')
-    end_date = st.sidebar.date_input('FIN:')
-    if start_date < end_date:
-        mon_perimetre["start"]  = start_date
-        mon_perimetre["end"] = end_date
-    else:
-        st.error('Error: End date must fall after start date.')
-    
-    
+    mon_perimetre["start"]  = st.sidebar.date_input('DEBUT:')
+    mon_perimetre["end"] = st.sidebar.date_input('FIN:')
+     
 
     #siteCluster
     siteCluster=['CLU01','CLU02','CLU03','CLU04','CLU05','CLU06']
